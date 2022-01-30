@@ -1,0 +1,15 @@
+extends layouts/page
+include _mixins
+
+block head
+  - page.title = "Config - Home"
+
+  +style("styles/index.css")
+
+block partials
+  include components/Header/header
+  main
+    include partials/index/content
+
+block scripts
+  +script("scripts/index.js")

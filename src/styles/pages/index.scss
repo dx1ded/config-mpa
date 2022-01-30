@@ -1,0 +1,22 @@
+@import "@components/Header/header";
+@import "@components/GulpFigure/figure";
+
+body {
+  height: 100vh;
+  background-image: url("@images/bg.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+// Content Section
+
+.content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  &__container {
+    text-align: center;
+  }
+}

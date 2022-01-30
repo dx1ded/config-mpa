@@ -1,0 +1,50 @@
+mixin head(data)
+  -
+    const title = data.title || config.projectName
+    const publishUrl = config.publishUrl
+    const description = data.description || config.description
+    const keywords = config.keywords.join(", ")
+    const author = config.author
+    const locale = config.locale
+
+  meta(charset="UTF-8")
+  meta(name="viewport" content="width=device-width, initial-scale=1.0")
+  meta(content="IE=edge" http-equiv="X-UA-Compatible")
+
+  title= title
+
+  meta(name="description" content=description)
+  meta(name="keywords" content=keywords)
+
+  meta(name="format-detection" content="telephone=no")
+  meta(name="format-detection" content="address=no")
+  meta(name="robots" content="noodp, noydir")
+
+  meta(name="apple-mobile-web-app-capable" content="yes")
+  meta(name="apple-mobile-web-app-status-bar-style" content="black-translucent")
+  meta(name="apple-mobile-web-app-title" content=config.projectName)
+
+  link(rel="stylesheet" href="styles/main.css")
+  script(src="scripts/_imageTest.js")
+
+  meta(property="og:url" content=`${config.publishUrl}/index.html`)
+  meta(property="og:type" content="website")
+  meta(property="og:title" content=title)
+  meta(property="og:image" content="assets/favicons/_preview.png")
+  meta(property="og:description" content=description)
+  meta(property="og:site_name" content=config.projectName)
+  meta(property="og:locale" content=locale)
+  meta(property="article:author" content=author)
+
+  //- Generated with http://realfavicongenerator.net/
+
+  link(rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png")
+  link(rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png")
+  link(rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png")
+  link(rel="manifest" href="assets/favicons/site.webmanifest")
+  link(rel="mask-icon" href="assets/favicons/safari-pinned-tab.svg" color="#5bbad5")
+  link(rel="shortcut icon" href="assets/favicons/favicon.ico")
+  
+  meta(name="msapplication-TileColor" content="#da532c")
+  meta(name="msapplication-config" content="assets/favicons/browserconfig.xml")
+  meta(name="theme-color" content="#ffffff")

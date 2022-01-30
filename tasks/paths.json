@@ -1,0 +1,22 @@
+{
+  "development": {
+    "ROOT": "src",
+    "markup": ["src/*.pug", "!src/_mixins.pug"],
+    "styles": ["src/styles/main.scss", "src/styles/pages/*.scss"],
+    "scripts": ["src/scripts/*.js"],
+    "images": {
+      "copy": ["public/assets/images/**/*", "!public/assets/images/svg/**/*"],
+      "generate": ["public/assets/images/**/*.{jpeg,jpg,png}", "!public/assets/images/svg/**/*"]
+    },
+    "sprites": "public/assets/images/svg/*"
+  },
+
+  "build": {
+    "ROOT": "build",
+    "markup": "build",
+    "styles": "build/styles",
+    "scripts": "build/scripts",
+    "images": "build/assets/images",
+    "sprites": "build/assets/images"
+  }
+}

@@ -1,0 +1,27 @@
+include ../components/Head/head
+include ../_mixins
+
+doctype html
+html(lang=config.lang)
+  head
+    -
+      const page = {
+        title: "",
+        description: ""
+      }
+
+    //- In this block you can set page options and add styles
+
+    block head
+
+    +head({
+      title: page.title,
+      description: page.description
+    })
+
+  body
+    .site-container
+      block partials
+
+    block scripts
+    +script("scripts/_imageLazy.js")

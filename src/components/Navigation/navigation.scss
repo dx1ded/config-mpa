@@ -1,0 +1,17 @@
+.nav {
+  &__list {
+    display: flex;
+    align-items: center;
+  }
+
+  &__item {
+    a {
+      color: var(--color-white);
+      text-decoration: none;
+    }
+
+    &:not(:last-child) {
+      margin-right: 35px;
+    }
+  }
+}

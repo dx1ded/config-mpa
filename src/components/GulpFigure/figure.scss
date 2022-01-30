@@ -1,0 +1,39 @@
+.figure {
+  &__image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
+    height: 300px;
+    background-color: var(--color-black);
+    border-radius: 100%;
+    animation-name: rotate360;
+    animation-duration: 3s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+
+    img {
+      width: 90%;
+      height: 90%;
+    }
+  }
+
+  &__caption {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 25px;
+
+    span {
+      margin-right: 10px;
+      color: var(--color-white);
+      font-size: 20px;
+    }
+
+    svg {
+      width: 26px;
+      height: 26px;
+      object-fit: cover;
+    }
+  }
+}

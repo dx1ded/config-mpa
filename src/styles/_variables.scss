@@ -1,0 +1,17 @@
+:root {
+  // Colors
+
+  --color-black: #000;
+  --color-white: #fff;
+
+  // Offsets
+
+  --container-horizontal-offset: 15px;
+
+  --design-mw: 1600px;
+  --mw: calc(var(--design-mw) + var(--container-horizontal-offset) * 2);
+
+  // Fonts
+
+  --font-family: "Gilroy", sans-serif;
+}

@@ -1,0 +1,27 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+}
+
+.container {
+  max-width: var(--mw);
+  margin: 0 auto;
+  padding: 0 var(--container-horizontal-offset);
+}
+
+.list-reset {
+  list-style: none;
+}
+
+.btn-reset {
+  background-color: transparent;
+  border: none;
+  outline: none;
+}

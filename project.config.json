@@ -1,0 +1,15 @@
+{
+  "projectName": "Site",
+  "publishUrl": "https://dx1ded.github.io/config-mpa",
+  "description": "Site Description",
+  "keywords": [
+    "config",
+    "gulp",
+    "webpack",
+    "project",
+    "dev"
+  ],
+  "author": "Volodymyr Doskochinskiy",
+  "lang": "en",
+  "locale": "en_US"
+}
