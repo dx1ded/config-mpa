@@ -2,34 +2,53 @@ import gulp from 'gulp'
 import plumber from 'gulp-plumber'
 import pug from 'gulp-pug'
 import gulpIf from 'gulp-if'
-import { setup as emittySetup } from '@zoxon/emitty'
+import pugAlias from 'pug-alias'
+import through from 'through2'
+
+import { configure } from '@emitty/core'
+import { parse } from 'emitty-pug-language-alias'
 
 import { isDev } from './_utils'
 import { development, build } from './paths.json'
 import config from '../project.config.json'
 
-const emittyPug = emittySetup(development.ROOT, 'pug', {
-  makeVinylFile: true
-})
+const emitty = configure()
+const aliases = {
+  '@cmps': 'src/components',
+  '@partials': 'src/partials'
+}
 
 global.watch = false
-global.emittyChangedFile = {
-  path: '',
-  stats: null
+global.changedFile = {
+  markup: undefined
 }
+
+emitty.language({
+  extensions: ['.pug'],
+  parser: parse.bind(this, aliases)
+})
+
+const getFilter = () => (
+  through.obj(function(file, _, callback) {
+    emitty
+      .filter(file.path, global.changedFile['markup'])
+      .then((result) => {
+        if (result) {
+          this.push(file)
+        }
+        
+        callback()
+      })
+  })
+)
 
 export const markup = () => (
   gulp.src(development.markup)
     .pipe(plumber())
-    .pipe(gulpIf(
-      global.watch,
-      emittyPug.stream(
-        global.emittyChangedFile.path,
-        global.emittyChangedFile.stats
-      )
-    ))
+    .pipe(gulpIf(global.watch, getFilter()))
     .pipe(pug({
       pretty: isDev,
+      plugins: [pugAlias(aliases)],
       data: {
         isDev,
         config
@@ -39,13 +58,14 @@ export const markup = () => (
 )
 
 export const markupWatcher = () => {
+  gulp.watch(`${development.ROOT}/**/*.pug`, markup)
+    .on('all', (_, filePath) => {
+      global.changedFile.markup = filePath
+    })
+}
+
+export const emittyInit = (callback) => {
   global.watch = true
 
-  gulp.watch(`${development.ROOT}/**/*.pug`, markup)
-    .on('all', (_, filepath, stats) => {
-      global.emittyChangeFile = {
-        path: filepath,
-        stats
-      }
-    })
+  callback()
 }

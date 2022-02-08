@@ -1,11 +1,34 @@
 {
 	"extends": [
-		"stylelint-config-recommended-scss",
-		"stylelint-config-rational-order",
-		"stylelint-prettier/recommended"
+		"stylelint-config-standard-scss",
+		"stylelint-config-recess-order"
 	],
-	"plugins": ["stylelint-order", "stylelint-scss"],
+	"plugins": ["stylelint-order"],
 	"rules": {
-		"no-empty-source": null
+		"no-empty-source": null,
+    "value-list-comma-newline-after": "always-multi-line",
+    "order/order": [
+      "declarations",
+      {
+        "type": "at-rule",
+        "name": "media"
+      },
+      {
+        "type": "rule",
+        "selector": "^&::(before|after)"
+      },
+      {
+        "type": "rule",
+        "selector": "^&:\\w"
+      },
+      {
+        "type": "rule",
+        "selector": "^&_"
+      },
+      {
+        "type": "rule",
+        "selector": "^."
+      }
+    ]
 	}
 }

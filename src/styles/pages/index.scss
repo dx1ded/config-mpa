@@ -1,5 +1,9 @@
-@import "@components/Header/header";
-@import "@components/GulpFigure/figure";
+@import "@main";
+
+// Components
+
+@import "@cmps/Header/header";
+@import "@cmps/GulpFigure/figure";
 
 body {
   height: 100vh;
@@ -17,6 +21,7 @@ body {
   transform: translate(-50%, -50%);
 
   &__container {
+    align-self: start;
     text-align: center;
   }
 }

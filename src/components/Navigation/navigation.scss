@@ -5,13 +5,13 @@
   }
 
   &__item {
+    &:not(:last-child) {
+      margin-right: 35px;
+    }
+
     a {
       color: var(--color-white);
       text-decoration: none;
-    }
-
-    &:not(:last-child) {
-      margin-right: 35px;
     }
   }
 }

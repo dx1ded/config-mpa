@@ -25,11 +25,13 @@ export const styles = () => (
     .pipe(sass({
       cache: true,
       importer: new SassAlias({
-        '@components': path.resolve(__dirname, '../src/components')
+        '@cmps': path.resolve(__dirname, '../src/components'),
+        '@main': path.resolve(__dirname, '../src/styles/main')
       }).getImporter()
     })
     .on('error', sass.logError))
     .pipe(replace('@images', '../assets/images'))
+    .pipe(replace('#/', '../assets/images/sprite.svg#'))
     .pipe(gulpIf(isProd, avifcss()))
     .pipe(postCSS([
       autoprefixer(),

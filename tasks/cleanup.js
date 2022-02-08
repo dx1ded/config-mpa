@@ -32,6 +32,10 @@ block scripts
   del.sync(`${development.ROOT}/styles/components/*.scss`)
   // Remove styles pages
   del.sync(`${development.ROOT}/styles/pages/*.scss`)
+  // Clear _animations.scss
+  fs.writeFileSync(`${development.ROOT}/styles/_animations.scss`, '')
+  // Clear _fonts.scss
+  fs.writeFileSync(`${development.ROOT}/styles/_fonts.scss`, '')
   // Remove Pages
   del.sync(development.markup)
   // Write default page (index.pug)

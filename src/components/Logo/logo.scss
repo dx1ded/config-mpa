@@ -1,6 +1,7 @@
 .logo {
   display: flex;
   align-items: center;
+  color: var(--color-black);
   text-decoration: none;
 
   &__icon {
@@ -16,7 +17,6 @@
   }
 
   &__text {
-    color: var(--color-black);
     font-size: 24px;
   }
 }

@@ -2,7 +2,7 @@ import gulp from 'gulp'
 
 import { clean } from './tasks/clean'
 import { server } from './tasks/server'
-import { markup, markupWatcher } from './tasks/markup'
+import { markup, markupWatcher, emittyInit } from './tasks/markup'
 import { styles, stylesWatcher } from './tasks/styles'
 import { scripts, scriptsWatcher } from './tasks/scripts'
 import { images, imagesWatcher } from './tasks/images'
@@ -22,6 +22,7 @@ export const build = gulp.series(
 )
 
 export const watch = gulp.series(
+  emittyInit,
   build,
   server,
   gulp.parallel(
