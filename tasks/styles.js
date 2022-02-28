@@ -3,7 +3,7 @@ import path from 'path'
 import sourcemaps from 'gulp-sourcemaps'
 import plumber from 'gulp-plumber'
 import replace from 'gulp-replace'
-import sassCompiler from 'node-sass'
+import sassCompiler from 'sass'
 import gulpSass from 'gulp-sass'
 import SassAlias from 'sass-alias'
 import postCSS from 'gulp-postcss'
@@ -26,7 +26,7 @@ export const styles = () => (
       cache: true,
       importer: new SassAlias({
         '@cmps': path.resolve(__dirname, '../src/components'),
-        '@main': path.resolve(__dirname, '../src/styles/main')
+        '@partials': path.resolve(__dirname, '..src/partials'),
       }).getImporter()
     })
     .on('error', sass.logError))
@@ -45,7 +45,8 @@ export const styles = () => (
 export const stylesWatcher = () => gulp.watch(
   [
     `${development.ROOT}/styles/**/*.scss`,
-    `${development.ROOT}/components/**/*.scss`
+    `${development.ROOT}/components/**/*.scss`,
+    `${development.ROOT}/partials/**/*.scss`
   ],
   styles
 )

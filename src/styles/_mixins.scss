@@ -1,3 +1,5 @@
+@use "sass:math";
+
 @mixin font($font-family, $file-path, $weight: normal, $style: normal) {
   @font-face {
     font-family: $font-family;
@@ -10,10 +12,10 @@
   }
 }
 
-@function stripunit($value) {
-  @return $value / ($value * 0 + 1);
+@function rem($value) {
+  @return math.div($value, 16px) * 1rem;
 }
 
-@function rem($pxValue) {
-  @return #{stripunit($pxValue) / stripunit(16px)}rem;
+@function em($current-value, $parent-value) {
+  @return math.div($current-value, $parent-value) * 1em;
 }

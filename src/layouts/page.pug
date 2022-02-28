@@ -1,4 +1,4 @@
-include ../components/Head/head
+include @cmps/Head/head
 include ../_mixins
 
 doctype html
@@ -10,14 +10,16 @@ html(lang=config.lang)
         description: ""
       }
 
-    //- In this block you can set page options and add styles
-
-    block head
+    block config
 
     +head({
       title: page.title,
       description: page.description
     })
+
+    //- In this block you can set page options and add styles
+
+    block styles
 
   body
     .site-container
