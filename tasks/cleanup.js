@@ -6,13 +6,17 @@ const { development, build } = require('./paths.json')
 const pageMarkup = `extends layouts/page
 include _mixins
 
-block head
+block config
   - page.title = "Page Title"
+
+block styles
+  +style("styles/index.css")
 
 block partials
   | Index Page
 
 block scripts
+  +script("scripts/index.js")
 `
 
 ;(() => {
@@ -25,11 +29,10 @@ block scripts
   // Remove scripts
   del.sync([
     `${development.ROOT}/scripts/**/*.js`,
-    `!${development.ROOT}/scripts/_imageLazy.js`,
-    `!${development.ROOT}/scripts/_imageTest.js`
+    `!${development.ROOT}/scripts/_defaults/*.js`
   ])
   // Remove styles components
-  del.sync(`${development.ROOT}/styles/components/*.scss`)
+  del.sync(`${development.ROOT}/styles/typography/*.scss`)
   // Remove styles pages
   del.sync(`${development.ROOT}/styles/pages/*.scss`)
   // Clear _animations.scss

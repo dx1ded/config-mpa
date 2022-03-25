@@ -12,26 +12,58 @@ import cssnano from 'cssnano'
 import postCSSImport from 'postcss-import'
 import avifcss from 'gulp-avif-css'
 import gulpIf from 'gulp-if'
+import through from 'through2'
+import tap from 'gulp-tap'
+import purgeCSS from 'gulp-purgecss'
+
+import { configure } from '@emitty/core'
+import { parse } from 'emitty-language-sass-alias'
 
 import { isDev, isProd } from './_utils'
-import { development, build } from './paths.json'
+import { development, build, alias } from './paths.json'
+
+const emitty = configure()
+
+emitty.language({
+  extensions: ['.scss'],
+  parser: parse.bind(this, alias)
+})
+
+const getFilter = () => (
+  through.obj(function(file, _, callback) {
+    emitty
+      .filter(file.path, global.changedFile['styles'])
+      .then((result) => {
+        if (result) {
+          this.push(file)
+        }
+
+        callback()
+      })
+  })
+)
 
 const sass = gulpSass(sassCompiler)
 
 export const styles = () => (
   gulp.src(development.styles)
+    .pipe(gulpIf(global.watch, getFilter()))
     .pipe(plumber())
     .pipe(gulpIf(isDev, sourcemaps.init()))
     .pipe(sass({
-      cache: true,
-      importer: new SassAlias({
-        '@cmps': path.resolve(__dirname, '../src/components'),
-        '@partials': path.resolve(__dirname, '..src/partials'),
-      }).getImporter()
+      importer: new SassAlias(alias)
+        .getImporter()
     })
     .on('error', sass.logError))
     .pipe(replace('@images', '../assets/images'))
     .pipe(replace('#/', '../assets/images/sprite.svg#'))
+    .pipe(gulpIf(isProd, tap((file, t) => {
+      const fileName = path.basename(file.basename, '.css')
+
+      return t.through(purgeCSS.bind(this, {
+        content: [`${build.markup}/${fileName}.html`]
+      }), [])
+    })))
     .pipe(gulpIf(isProd, avifcss()))
     .pipe(postCSS([
       autoprefixer(),
@@ -49,4 +81,6 @@ export const stylesWatcher = () => gulp.watch(
     `${development.ROOT}/partials/**/*.scss`
   ],
   styles
-)
+).on('all', (_, filePath) => {
+  global.changedFile['styles'] = filePath
+})

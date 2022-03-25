@@ -3,7 +3,7 @@
     "ROOT": "src",
     "markup": ["src/*.pug", "!src/_mixins.pug"],
     "styles": ["src/styles/main.scss", "src/styles/pages/*.scss"],
-    "scripts": ["src/scripts/*.js"],
+    "scripts": ["src/scripts/*.js", "src/scripts/_defaults/*.js"],
     "images": {
       "copy": ["public/assets/images/**/*", "!public/assets/images/svg/**/*"],
       "generate": ["public/assets/images/**/*.{jpeg,jpg,png}", "!public/assets/images/svg/**/*"]
@@ -18,5 +18,10 @@
     "scripts": "build/scripts",
     "images": "build/assets/images",
     "sprites": "build/assets/images"
+  },
+
+  "alias": {
+    "@cmps": "src/components",
+    "@partials": "src/partials"
   }
 }

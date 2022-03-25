@@ -1,7 +1,10 @@
 mixin image(file, alt="")
-  - const [fileName] = file.split(".")
+  - const [fileName, ext] = file.split(".")
 
   if isDev
+    img(class="lazy" data-src=`assets/images/${file}` src="assets/images/_placeholder.png" alt=alt)&attributes(attributes)
+  
+  else if ext === "svg"
     img(class="lazy" data-src=`assets/images/${file}` src="assets/images/_placeholder.png" alt=alt)&attributes(attributes)
 
   else
@@ -11,11 +14,11 @@ mixin image(file, alt="")
       img(class="lazy" data-src=`assets/images/${file}` src="assets/images/_placeholder.png" alt=alt)&attributes(attributes)
 
 mixin style(path)
-  link(rel="stylesheet" href=path)
+  link(href=path rel="stylesheet")
 
 mixin script(path)
   script(src=path)
 
 mixin icon(id)
-  svg
+  svg&attributes(attributes)
     use(xlink:href=`assets/images/sprite.svg#${id}`)

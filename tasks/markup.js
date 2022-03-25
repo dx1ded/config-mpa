@@ -4,28 +4,20 @@ import pug from 'gulp-pug'
 import gulpIf from 'gulp-if'
 import pugAlias from 'pug-alias'
 import through from 'through2'
+import typograf from 'gulp-typograf'
 
 import { configure } from '@emitty/core'
 import { parse } from 'emitty-pug-language-alias'
 
-import { isDev } from './_utils'
-import { development, build } from './paths.json'
+import { isDev, isProd } from './_utils'
+import { development, build, alias } from './paths.json'
 import config from '../project.config.json'
 
 const emitty = configure()
-const aliases = {
-  '@cmps': 'src/components',
-  '@partials': 'src/partials'
-}
-
-global.watch = false
-global.changedFile = {
-  markup: undefined
-}
 
 emitty.language({
   extensions: ['.pug'],
-  parser: parse.bind(this, aliases)
+  parser: parse.bind(this, alias)
 })
 
 const getFilter = () => (
@@ -48,24 +40,16 @@ export const markup = () => (
     .pipe(gulpIf(global.watch, getFilter()))
     .pipe(pug({
       pretty: isDev,
-      plugins: [pugAlias(aliases)],
-      data: {
-        isDev,
-        config
-      }
+      plugins: [pugAlias(alias)],
+      data: { isDev, config }
     }))
+    .pipe(gulpIf(isProd, typograf({ locale: ['ru', 'en-US'] })))
     .pipe(gulp.dest(build.markup))
 )
 
 export const markupWatcher = () => {
   gulp.watch(`${development.ROOT}/**/*.pug`, markup)
     .on('all', (_, filePath) => {
-      global.changedFile.markup = filePath
+      global.changedFile['markup'] = filePath
     })
-}
-
-export const emittyInit = (callback) => {
-  global.watch = true
-
-  callback()
 }
