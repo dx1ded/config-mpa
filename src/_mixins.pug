@@ -2,16 +2,16 @@ mixin image(file, alt="")
   - const [fileName, ext] = file.split(".")
 
   if isDev
-    img(class="lazy" data-src=`assets/images/${file}` src="assets/images/_placeholder.png" alt=alt)&attributes(attributes)
+    img(class="lazy" data-src=`assets/images/${file}` src="assets/images/placeholder.png" alt=alt)&attributes(attributes)
   
   else if ext === "svg"
-    img(class="lazy" data-src=`assets/images/${file}` src="assets/images/_placeholder.png" alt=alt)&attributes(attributes)
+    img(class="lazy" data-src=`assets/images/${file}` src="assets/images/placeholder.png" alt=alt)&attributes(attributes)
 
   else
     picture
-      source(data-srcset=`assets/images/${fileName}.avif` srcset="assets/images/_placeholder.png" type="image/avif")
-      source(data-srcset=`assets/images/${fileName}.webp` type="image/webp" srcset="assets/images/_placeholder.png")
-      img(class="lazy" data-src=`assets/images/${file}` src="assets/images/_placeholder.png" alt=alt)&attributes(attributes)
+      source(data-srcset=`assets/images/${fileName}.avif` srcset="assets/images/placeholder.png" type="image/avif")
+      source(data-srcset=`assets/images/${fileName}.webp` srcset="assets/images/placeholder.png" type="image/webp")
+      img(class="lazy" data-src=`assets/images/${file}` src="assets/images/placeholder.png" alt=alt)&attributes(attributes)
 
 mixin style(path)
   link(href=path rel="stylesheet")
