@@ -20,6 +20,11 @@ body {
   margin: 0 auto;
 }
 
+.link-reset {
+  color: var(--color-black);
+  text-decoration: none;
+}
+
 .list-reset {
   list-style: none;
 }
@@ -36,10 +41,10 @@ body {
 
 .visually-hidden {
   position: absolute;
-  width: 1px;
-  height: 1px;
+  width: rem(1px);
+  height: rem(1px);
   padding: 0;
-  margin: -1px;
+  margin: rem(-1px);
   overflow: hidden;
   clip: rect(0 0 0 0);
   clip-path: inset(50%);

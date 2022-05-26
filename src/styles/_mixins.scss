@@ -16,6 +16,70 @@
   @return math.div($value, 16px) * 1rem;
 }
 
-@function em($current-value, $parent-value) {
+@function em($current-value, $parent-value: 16px) {
   @return math.div($current-value, $parent-value) * 1em;
+}
+
+// Media Queries
+
+$laptop: em(1350px);
+$sm-laptop: em(1024px);
+$l-tablet: em(900px);
+$tablet: em(768px);
+$l-mobile: em(420px);
+$mobile: em(375px);
+$sm-mobile: em(374px);
+
+@mixin is-desktop {
+  @media (hover: hover) {
+    @content;
+  }
+}
+
+@mixin resolution($px) {
+  @media (max-width: em($px)) {
+    @content;
+  }
+}
+
+@mixin laptop {
+  @media (max-width: $laptop) {
+    @content;
+  }
+}
+
+@mixin sm-laptop {
+  @media (max-width: $sm-laptop) {
+    @content;
+  }
+}
+
+@mixin l-tablet {
+  @media (max-width: $l-tablet) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: $tablet) {
+    @content;
+  }
+}
+
+@mixin l-mobile {
+  @media (max-width: $l-mobile) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: $mobile) {
+    @content;
+  }
+}
+
+@mixin sm-mobile {
+  @media (max-width: $sm-mobile) {
+    @content;
+  }
 }

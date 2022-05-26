@@ -1,1 +1,1 @@
-console.log("All works ok!")
+console.log("Everything works ok!")

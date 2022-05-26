@@ -1,6 +1,7 @@
-const path = require('path')
+import path from 'path'
+import TerserPlugin from 'terser-webpack-plugin'
 
-import { isDev } from './tasks/_utils'
+import { isDev, isProd } from './tasks/_utils'
 
 export default {
   mode: process.env.NODE_ENV,
@@ -21,7 +22,23 @@ export default {
   resolve: {
     extensions: ['.js', '.json'],
     alias: {
-      '@cmps': path.resolve(__dirname, 'src/components')
+      '@': path.resolve(__dirname, 'src/scripts'),
+      '@cmps': path.resolve(__dirname, 'src/components'),
+      '@partials': path.resolve(__dirname, 'src/partials')
     }
+  },
+  optimization: {
+    minimize: isProd,
+    minimizer: [
+      new TerserPlugin({
+        parallel: true,
+        extractComments: false,
+        terserOptions: {
+          format: {
+            comments: false,
+          }
+        }
+      })
+    ]
   }
 }

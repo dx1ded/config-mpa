@@ -1,5 +1,4 @@
 import gulp from 'gulp'
-import path from 'path'
 import sourcemaps from 'gulp-sourcemaps'
 import plumber from 'gulp-plumber'
 import replace from 'gulp-replace'
@@ -13,8 +12,6 @@ import postCSSImport from 'postcss-import'
 import avifcss from 'gulp-avif-css'
 import gulpIf from 'gulp-if'
 import through from 'through2'
-import tap from 'gulp-tap'
-import purgeCSS from 'gulp-purgecss'
 
 import { configure } from '@emitty/core'
 import { parse } from 'emitty-language-sass-alias'
@@ -57,13 +54,6 @@ export const styles = () => (
     .on('error', sass.logError))
     .pipe(replace('@images', '../assets/images'))
     .pipe(replace('#/', '../assets/images/sprite.svg#'))
-    .pipe(gulpIf(isProd, tap((file, t) => {
-      const fileName = path.basename(file.basename, '.css')
-
-      return t.through(purgeCSS.bind(this, {
-        content: [`${build.markup}/${fileName}.html`]
-      }), [])
-    })))
     .pipe(gulpIf(isProd, avifcss()))
     .pipe(postCSS([
       autoprefixer(),

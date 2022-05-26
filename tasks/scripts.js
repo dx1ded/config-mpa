@@ -18,7 +18,8 @@ export const scriptsWatcher = () => gulp.watch(
   [
     `${development.ROOT}/scripts/**/*.js`,
     `${development.ROOT}/scripts/**/*.json`,
-    `${development.ROOT}/components/**/*.js`
+    `${development.ROOT}/components/**/*.js`,
+    `${development.ROOT}/partials/**/*.js`
   ],
   scripts
 )
