@@ -1,10 +1,8 @@
-/* purgecss start ignore */
-
-@import "normalize.css";
-@import "./variables";
+@import "normalize.css/normalize";
 @import "./mixins";
+@import "./variables";
 @import "./base";
 @import "./animations";
 @import "./fonts";
 
-/* purgecss end ignore */
+// Typography

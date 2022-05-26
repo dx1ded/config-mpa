@@ -8,7 +8,7 @@ import SassAlias from 'sass-alias'
 import postCSS from 'gulp-postcss'
 import autoprefixer from 'autoprefixer'
 import cssnano from 'cssnano'
-import postCSSImport from 'postcss-import'
+import sortMediaQueries from 'postcss-sort-media-queries'
 import avifcss from 'gulp-avif-css'
 import gulpIf from 'gulp-if'
 import through from 'through2'
@@ -48,6 +48,7 @@ export const styles = () => (
     .pipe(plumber())
     .pipe(gulpIf(isDev, sourcemaps.init()))
     .pipe(sass({
+      includePaths: ['node_modules'],
       importer: new SassAlias(alias)
         .getImporter()
     })
@@ -58,7 +59,7 @@ export const styles = () => (
     .pipe(postCSS([
       autoprefixer(),
       cssnano(),
-      postCSSImport()
+      sortMediaQueries()
     ]))
     .pipe(gulpIf(isDev, sourcemaps.write()))
     .pipe(gulp.dest(build.styles))
